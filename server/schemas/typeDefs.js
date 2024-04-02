@@ -3,9 +3,8 @@ const typeDefs = `
         _id: ID
         username: String
         email: String
-        password: String
+        bookCount: Int
         savedBooks: [Book]
-        user: User
     }
 
     type Book {
@@ -17,5 +16,14 @@ const typeDefs = `
         link: String
         title: String
         books: [Book]
+    }
+
+    type Auth {
+        token: ID!
+        user: User
+    }
+
+    type Query {
+        me: User
     }
 `
