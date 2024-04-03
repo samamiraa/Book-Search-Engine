@@ -12,7 +12,7 @@ const resolvers = {
     },
 
     Mutation: {
-        createUser: async (parent, { username, email, password }) => {
+        addUser: async (parent, { username, email, password }) => {
             try {
                 const user = await User.create({ username, email, password });
                 const token = signToken(user);
@@ -53,7 +53,7 @@ const resolvers = {
                             $addToSet:
                             {
                                 savedBooks:
-                                    authors,
+                                authors,
                                 description,
                                 title,
                                 bookId,
