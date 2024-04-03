@@ -8,8 +8,7 @@ const typeDefs = `
         savedBooks: [Book]
     }
 
-    input BookInput {
-        _id: ID
+    type Book {
         authors: [String]
         description: String
         bookId: String
@@ -17,6 +16,15 @@ const typeDefs = `
         link: String
         title: String
         books: [Book]
+    }
+
+    input BookInput {
+        authors: [String]
+        description: String
+        bookId: String
+        image: String
+        link: String
+        title: String
     }
 
     type Auth {
