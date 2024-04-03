@@ -50,3 +50,13 @@ export const SAVE_BOOK = gql`
         }
     }
 `
+
+export const REMOVE_BOOK = gql`
+    mutation Mutation($bookId: String!) {
+        removeBook(bookId: $bookId) {
+            savedBooks {
+                bookId
+            }
+        }
+    }
+`
