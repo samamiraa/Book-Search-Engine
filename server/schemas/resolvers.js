@@ -43,30 +43,47 @@ const resolvers = {
             }
         },
         saveBook: async (parent, { book }, context) => {
-                try {
-                    if (context.user) {
-                        const { authors, description, title, bookId, image, link } = book;
+            try {
+                if (context.user) {
+                    const { authors, description, title, bookId, image, link } = book;
 
-                        return User.findOneAndUpdate(
-                            { _id: context.user._id },
-                            { $addToSet: 
-                                { savedBooks:  
-                                    authors, 
-                                    description, 
-                                    title, 
-                                    bookId, 
-                                    image, 
-                                    link  
-                                } 
-                            },
-                            { new: true, runValidators: true }
-                        )
-                    } else {
-                        throw AuthenticationError;
-                    }
-                } catch (error) {
-                    console.error('Error saving book: ', error);
+                    return User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        {
+                            $addToSet:
+                            {
+                                savedBooks:
+                                    authors,
+                                description,
+                                title,
+                                bookId,
+                                image,
+                                link
+                            }
+                        },
+                        { new: true, runValidators: true }
+                    )
+                } else {
+                    throw AuthenticationError;
                 }
+            } catch (error) {
+                console.error('Error saving book: ', error);
+            }
+        },
+        removeBook: async (parent, { bookId }, context) => {
+            try {
+                if (context.user) {
+                    return User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $pull: { bookId } },
+                        { new: true }
+                    )
+                } else {
+                    throw AuthenticationError;
+                }
+            } catch (error) {
+                console.error('Error removing book: ', error);
+            }
         },
     },
 };
