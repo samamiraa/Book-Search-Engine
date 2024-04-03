@@ -42,16 +42,28 @@ const resolvers = {
                 console.error('Error logging in user: ', error);
             }
         },
-        saveBook: async (parent, { bookId }, context) => {
+        saveBook: async (parent, { book }, context) => {
                 try {
                     if (context.user) {
+                        const { authors, description, title, bookId, image, link } = book;
+
                         return User.findOneAndUpdate(
-                            { _id: bookId },
-                            { $addToSet: { savedBooks: body } },
+                            { _id: context.user._id },
+                            { $addToSet: 
+                                { savedBooks:  
+                                    authors, 
+                                    description, 
+                                    title, 
+                                    bookId, 
+                                    image, 
+                                    link  
+                                } 
+                            },
                             { new: true, runValidators: true }
                         )
+                    } else {
+                        throw AuthenticationError;
                     }
-                    throw AuthenticationError;
                 } catch (error) {
                     console.error('Error saving book: ', error);
                 }

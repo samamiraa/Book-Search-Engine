@@ -8,7 +8,7 @@ const typeDefs = `
         savedBooks: [Book]
     }
 
-    type Book {
+    input BookInput {
         _id: ID
         authors: [String]
         description: String
@@ -32,8 +32,8 @@ const typeDefs = `
         createUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
 
-        saveBook(bookId: String!): User
-        deleteBook(bookId: String!): User
+        saveBook(book: BookInput!): User
+        removeBook(bookId: String!): User
     }
 `
 
